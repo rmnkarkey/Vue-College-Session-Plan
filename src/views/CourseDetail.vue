@@ -1,10 +1,73 @@
 <template>
   <div>
-    <v-dialog v-model="dialog" max-width="500px">
-      <v-btn slot="activator" color="primary" dark class="mb-2">New Item</v-btn>
+    <nav >
+   <v-toolbar flat app class="blue">
+   <v-toolbar-side-icon  v-on:click="drawer = !drawer">
+
+   </v-toolbar-side-icon>
+<v-toolbar-title class="text-uppercase">
+<!-- <span class="grey--text">Student</span> -->
+<span></span>
+</v-toolbar-title>
+<v-spacer></v-spacer>
+<!-- <router-link to="/login" v-if="!isLoggedIn"> -->
+
+<!-- <v-btn color="grey" tag="v-btn"  >
+   <span >Signin</span>
+   <v-icon right>exit_to_app</v-icon>
+</v-btn>
+</router-link>
+<router-link to="/" v-if="!isLoggedIn"> -->
+
+<!-- <v-btn color="grey" tag="v-btn"  >
+   <span >register</span>
+   <v-icon right>exit_to_app</v-icon>
+</v-btn>
+</router-link> -->
+<router-link to="/logout">
+<v-btn color="grey" v-on:click="logout" >
+   <span>Logout</span>
+   <v-icon right>exit_to_app</v-icon>
+</v-btn>
+</router-link>
+
+</v-toolbar>
+
+   <v-navigation-drawer  v-model="drawer" app class=" text-uppercase text-md-center blue">
+
+       <v-toolbar flat class="transparent">
+       <v-list class="pa-0">
+         <v-list-tile avatar>
+           <v-list-tile-avatar>
+           </v-list-tile-avatar>
+
+           <v-list-tile-content>
+             <v-list-tile-title>Admin</v-list-tile-title>
+           </v-list-tile-content>
+         </v-list-tile>
+       </v-list>
+     </v-toolbar>
+
+       <v-list>
+           <v-list-tile  v-for="link in menuItems" :key="link.text"  router :to="link.route">
+               <v-list-tile-action>
+                   <v-icon class="white--text">{{link.icon}}</v-icon>
+               </v-list-tile-action>
+               <v-list-tile-content>
+                   <v-list-tile-title class="white--text">
+                       {{link.text}}<hr>
+                    </v-list-tile-title>
+               </v-list-tile-content>
+           </v-list-tile>
+       </v-list>
+   </v-navigation-drawer>
+
+   </nav>
+    <v-dialog v-model="dialog" max-width="500px" class="box">
+      <v-btn slot="activator" color="primary" dark class="mb-2">Add course</v-btn>
       <v-card>
         <v-card-title>
-          <span class="headline">{{ formTitle }}</span>
+          <span class="headline"></span>
         </v-card-title>
         <v-card-text>
           <v-container grid-list-md>
@@ -15,15 +78,11 @@
               <v-flex xs12 sm6 md4>
                 <v-text-field v-model="editedItem.course_name" label="course_name"></v-text-field>
               </v-flex>
-              <v-flex xs12 sm6 md4>
-                <v-text-field v-model="editedItem.year" label="year"></v-text-field>
-              </v-flex>
+
               <v-flex xs12 sm6 md4>
                 <v-text-field v-model="editedItem.credit" label="credit"></v-text-field>
               </v-flex>
-              <v-flex xs12 sm6 md4>
-                <v-text-field v-model="editedItem.session" label="session"></v-text-field>
-              </v-flex>
+
               <v-flex xs12 sm6 md4>
                 <v-text-field v-model="editedItem.prerequisite" label="prerequisite"></v-text-field>
               </v-flex>
@@ -55,17 +114,10 @@
       hide-actions
       class="elevation-1"
     >
-
-
-
-
-
       <template slot="items" slot-scope="props">
         <td class="text-xs-right">{{ props.item.course_code }}</td>
         <td class="text-xs-right">{{ props.item.course_name }}</td>
-          <td class="text-xs-right">{{ props.item.year }}</td>
         <td class="text-xs-right">{{ props.item.credit }}</td>
-          <td class="text-xs-right">{{ props.item.session }}</td>
         <td class="text-xs-right">{{ props.item.prerequisite }}</td>
         <td class="justify-center layout px-0">
           <v-btn icon class="mx-0" @click="editItem(props.item)">
@@ -93,17 +145,27 @@ import axios from 'axios';
     data: () => ({
        search: '',
        pagination:{rowsPerPage:10},
-       dialog: false,
+       drawer:false,
+       menuItems:[
+          {icon:'add',text:'Add Student',route:'/addstudent'},
+          {icon:'add',text:"Add Course",route:'/addcourse'},
+          {icon:'school',text:'Course Details',route:'/coursedetail'},
+          //
+          // {icon:'person',text:'Session Plan', route:'/session'},
+          // {icon:'person',text:'session Detail',route:'/sessiondetail'},
+          {icon:'add',text:'Addsession',route:'/sessionname'},
+
+          {icone:'grademanagement',text:'gradeManagement',route:'/gradeManagement'}
+
+       ],
        headers: [
-       
-        { text: 'course_code', value: 'course_code' },
-        { text: 'course_name', value: 'course_name' },
-        { text: 'year', value: 'year'},
-        { text: 'credit',value:'credit'},
-        {text:'session',value:'session'},
-        {text:'prerequisite', value:'prerequisite'},
-        {text: 'Actions', value: 'action', sortable: false}
-      ],
+
+      {text: 'Course Code', value: 'course_code' },
+      {text:'Course Name',value:'course_name'},
+      {text:'Credit',value:'credit'},
+      {text:'Prerequisite',value:'prerequisite'},
+
+       ],
       courses: [],
       editedIndex: -1,
       editedItem: {
@@ -160,7 +222,7 @@ import axios from 'axios';
       initialize(){
          // this.fetchContacts();
       },
-      
+
       editItem (item) {
         this.editedIndex = this.courses.indexOf(item)
         this.editedItem = Object.assign({}, item)
@@ -168,16 +230,16 @@ import axios from 'axios';
       },
       deleteItem (item) {
         console.log(item);
-        
+
         const index = this.courses.indexOf(item)
         confirm('Are you sure you want to delete this course?',this.index) && this.courses.splice(index, 1)
           console.log('deleted data');
-          
+
           axios.delete('ip/courses/'+item+'/')
           .then(response=>{
-           
+
             console.log(response);
-            
+
           })
       },
       close () {
@@ -191,7 +253,7 @@ import axios from 'axios';
         if (this.editedIndex > -1) {
           console.log('edited data');
           console.log(this.editedItem);
-          
+
           axios.post('ip/courses/'+this.editedItem.course_code+'/',{
           course_code: this.editedItem.course_code,
            course_name: this.editedItem.course_name,
@@ -202,9 +264,9 @@ import axios from 'axios';
            })
           .then(response=>{
             console.log(response);
-            
+
           })
-          
+
           Object.assign(this.courses[this.editedIndex], this.editedItem)
         } else {
           console.log('created data');
@@ -218,7 +280,7 @@ import axios from 'axios';
            prerequisite:this.editedItem.prerequisite})
           .then(response=>{
             console.log(response);
-            
+
           })
           this.courses.push(this.editedItem)
         }
@@ -227,8 +289,8 @@ import axios from 'axios';
     }
   }
 </script>
-
-
-
-
-
+<style media="screen">
+.box{
+  margin-top:100px
+}
+</style>

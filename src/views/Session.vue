@@ -1,9 +1,75 @@
 <template>
+<div>
+  <nav >
+ <v-toolbar flat app class="blue">
+ <v-toolbar-side-icon  v-on:click="drawer = !drawer">
+
+ </v-toolbar-side-icon>
+<v-toolbar-title class="text-uppercase">
+<!-- <span class="grey--text">Student</span> -->
+<span></span>
+</v-toolbar-title>
+<v-spacer></v-spacer>
+<!-- <router-link to="/login" v-if="!isLoggedIn"> -->
+
+<!-- <v-btn color="grey" tag="v-btn"  >
+ <span >Signin</span>
+ <v-icon right>exit_to_app</v-icon>
+</v-btn>
+</router-link>
+<router-link to="/" v-if="!isLoggedIn"> -->
+
+<!-- <v-btn color="grey" tag="v-btn"  >
+ <span >register</span>
+ <v-icon right>exit_to_app</v-icon>
+</v-btn>
+</router-link> -->
+<router-link to="/logout">
+<v-btn color="grey" v-on:click="logout" >
+ <span>Logout</span>
+ <v-icon right>exit_to_app</v-icon>
+</v-btn>
+</router-link>
+
+</v-toolbar>
+
+ <v-navigation-drawer  v-model="drawer" app class=" text-uppercase text-md-center blue">
+
+     <v-toolbar flat class="transparent">
+     <v-list class="pa-0">
+       <v-list-tile avatar>
+         <v-list-tile-avatar>
+         </v-list-tile-avatar>
+
+         <v-list-tile-content>
+           <v-list-tile-title>Admin</v-list-tile-title>
+         </v-list-tile-content>
+       </v-list-tile>
+     </v-list>
+   </v-toolbar>
+
+     <v-list>
+         <v-list-tile  v-for="link in menuItems" :key="link.text"  router :to="link.route">
+             <v-list-tile-action>
+                 <v-icon class="white--text">{{link.icon}}</v-icon>
+             </v-list-tile-action>
+             <v-list-tile-content>
+                 <v-list-tile-title class="white--text">
+                     {{link.text}}<hr>
+                  </v-list-tile-title>
+             </v-list-tile-content>
+         </v-list-tile>
+     </v-list>
+ </v-navigation-drawer>
+
+ </nav>
+ <div class="containerr">
+
   <v-container width="350px">
-    
+
     <v-form @submit.prevent="clickFunction" method="post">
     <br>
-      <v-label>session </v-label> 
+      <v-label>session </v-label>
       <v-text-field  type="text" v-model="session"></v-text-field>
     <v-btn type="submit" flat class="success" value="Search"> Search</v-btn>
   </v-form>
@@ -12,20 +78,20 @@
 
   <v-form @submit.prevent="SaveFunction" method="post">
 
-    <v-label>Session Name  </v-label>  
+    <v-label>Session Name  </v-label>
     <v-text-field type="text" v-model="session_name"></v-text-field>
     <br>
-     <v-label>Session Year  </v-label>  
+     <v-label>Session Year  </v-label>
     <v-text-field type="number" v-model="session_year"> </v-text-field>
     <br>
-     <v-label>Max Credit </v-label>  
+     <v-label>Max Credit </v-label>
     <v-text-field type="number" v-model="max_credit"></v-text-field>
     <br>
     <br>
-    <v-label>Start Date  </v-label> 
+    <v-label>Start Date  </v-label>
     <v-text-field type="date" v-model="startdate"></v-text-field>
     <br>
-    <v-label>Dead line   </v-label> 
+    <v-label>Dead line   </v-label>
     <v-text-field type="date" v-model="deadline"></v-text-field>
     <br>
     <table>
@@ -75,8 +141,10 @@
     <v-btn type="submit" value="Save">Save</v-btn>
 
   </v-form>
-  
+
   </v-container>
+</div>
+</div>
 </template>
 
 
@@ -96,10 +164,23 @@ export default{
       course_name:'',
       course_code:'',
       course_credit:'',
-      listOfCourse:[]
+      listOfCourse:[],
+      drawer:false,
+      menuItems:[
+         {icon:'add',text:'Add Student',route:'/addstudent'},
+         {icon:'add',text:"Add Course",route:'/addcourse'},
+         {icon:'school',text:'Course Details',route:'/coursedetail'},
+         //
+         // {icon:'person',text:'Session Plan', route:'/session'},
+         // {icon:'person',text:'session Detail',route:'/sessiondetail'},
+         {icon:'add',text:'Addsession',route:'/sessionname'},
+
+         {icone:'grademanagement',text:'gradeManagement',route:'/gradeManagement'}
+
+      ]
     };
   },
-  
+
   methods:{
   clickFunction(){
     axios.post(ip+'/session-plan/',{
@@ -172,5 +253,8 @@ export default{
 <style scoped>
 ul{
     list-style-type: none;
+}
+.containerr{
+  margin-top: 100px
 }
 </style>

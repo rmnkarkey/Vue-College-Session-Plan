@@ -1,5 +1,7 @@
 <template>
 <div>
+
+<div class='student'>
  <v-form v-model="valid" @submit="formSubmit" method="POST">
     <v-container grid-list-xl>
       <v-layout wrap>
@@ -14,7 +16,7 @@
             required
           ></v-text-field>
         </v-flex>
-        
+
         <v-flex
           xs12
           md4
@@ -31,18 +33,31 @@
           xs12
           md4
         >
+
+          <v-text-field
+            v-model="username"
+            placeholder="User name"
+            type="text"
+            required
+          ></v-text-field>
+        </v-flex>
+
+        <v-flex
+          xs12
+          md4
+        >
           <v-text-field
             v-model="email"
-           
+
             placeholder="E-mail"
             type="email"
             required
           ></v-text-field>
         </v-flex>
-        
-        <v-flex 
+
+        <v-flex
          xs12
-          md4> 
+          md4>
           <v-text-field
             v-model="enrolled_session"
             placeholder="Enrolledsession"
@@ -52,7 +67,7 @@
 
         </v-flex>
 
-        <v-flex 
+        <v-flex
         xs12
         md4 >
         <v-text-field
@@ -61,10 +76,10 @@
             type="datetime"
             required
           ></v-text-field>
-        </v-flex> 
-         <v-flex 
+        </v-flex>
+         <v-flex
          xs12
-          md4> 
+          md4>
           <v-text-field
             v-model="date_created"
             placeholder="Date_created"
@@ -73,9 +88,9 @@
           ></v-text-field>
 
         </v-flex>
-         <v-flex 
+         <v-flex
          xs12
-          md4> 
+          md4>
           <v-text-field
             v-model="password"
             placeholder="password"
@@ -84,9 +99,9 @@
           ></v-text-field>
 
         </v-flex>
-         <v-flex 
+         <v-flex
          xs12
-          md4> 
+          md4>
           <v-text-field
             v-model="status"
 
@@ -99,19 +114,20 @@
 
 
 
-     
+
       </v-layout>
       <v-btn class="success" type="submit">submit </v-btn>
     </v-container>
   </v-form>
 <app-student-view v-bind:result="result"></app-student-view>
 </div>
+</div>
 </template>
 
 <script>
   import axios from 'axios';
   import StudentDetail from './StudentDetail.vue';
-
+  // import navbar from '../components/Navbar.vue';
   export default {
 components:{
   'app-student-view':StudentDetail
@@ -119,6 +135,7 @@ components:{
     data(){
       return{
         full_name:'',
+        username:'',
         email:'',
         university_id:'',
         enrolled_session:'',
@@ -126,8 +143,7 @@ components:{
         password:'',
         date_created:'',
         enrolled_year:'',
-        result:[]
-
+        result:[],
       }
 
     }
@@ -141,8 +157,9 @@ components:{
      methods:{
      formSubmit:function(e){
         e.preventDefault();
-        axios.post('ip/student/',{
+        axios.post(ip+'/student/',{
           full_name:this.full_name,
+          username:this.username,
           email:this.email,
           university_id:this.university_id,
           enrolled_session:this.enrolled_session,
@@ -160,8 +177,13 @@ components:{
         })
 
      },
- 
+
    }
-   
+
   }
 </script>
+<style media="screen">
+  .student{
+    margin-top:50px
+  }
+</style>

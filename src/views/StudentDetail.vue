@@ -1,57 +1,57 @@
 <template>
   <div>
-     <nav >
-       <v-toolbar flat app class="blue">
-    <v-toolbar-side-icon  v-on:click="drawer = !drawer">
+    <nav >
+   <v-toolbar flat app class="blue">
+   <v-toolbar-side-icon  v-on:click="drawer = !drawer">
 
-    </v-toolbar-side-icon>
-<v-toolbar-title class="text-uppercase">
-<span></span>
-</v-toolbar-title>
-<v-spacer></v-spacer>
-<router-link to="/login" v-if="!isLoggedIn">
-</router-link>
-<router-lint to="/logout" v-if="isLoggedIn">
-<v-btn color="grey" v-on:click="logout" >
-    <h1><span>Logout</span></h1>
-<v-icon right>exit_to_app</v-icon>
-</v-btn>
-</router-lint>
+   </v-toolbar-side-icon>
+  <v-toolbar-title class="text-uppercase">
+  <!-- <span class="grey--text">Student</span> -->
+  <span></span>
+  </v-toolbar-title>
+  <v-spacer></v-spacer>
 
-</v-toolbar>
+  <router-link to="/logout">
+  <v-btn color="grey" v-on:click="logout" >
+   <span>Logout</span>
+   <v-icon right>exit_to_app</v-icon>
+  </v-btn>
+  </router-link>
 
-    <v-navigation-drawer  v-model="drawer" app class=" text-uppercase text-md-center blue">
+  </v-toolbar>
 
-        <v-toolbar flat class="transparent">
-        <v-list class="pa-0">
-          <v-list-tile avatar>
-            <v-list-tile-avatar>
-              <img src="https://randomuser.me/api/portraits/men/85.jpg">
-            </v-list-tile-avatar>
+   <v-navigation-drawer  v-model="drawer" app class=" text-uppercase text-md-center blue">
 
-            <v-list-tile-content>
-              <v-list-tile-title>{{this.$store.getters.getUser}}</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-        </v-list>
-      </v-toolbar>
+       <v-toolbar flat class="transparent">
+       <v-list class="pa-0">
+         <v-list-tile avatar>
+           <v-list-tile-avatar>
+           </v-list-tile-avatar>
 
-        <v-list>
-            <v-list-tile  v-for="link in links" :key="link.text"  router :to="link.route">
-                <v-list-tile-action>
-                    <v-icon class="white--text">{{link.icon}}</v-icon>
-                </v-list-tile-action>
-                <v-list-tile-content>
-                    <v-list-tile-title class="white--text">
-                        {{link.text}}<hr>
-                     </v-list-tile-title>
-                </v-list-tile-content>
-            </v-list-tile>
-        </v-list>
-    </v-navigation-drawer>
-    </nav>
-    <v-dialog v-model="dialog" max-width="500px">
-      <v-btn slot="activator" color="primary" dark class="mb-2">New Item</v-btn>
+           <v-list-tile-content>
+             <v-list-tile-title>Admin</v-list-tile-title>
+           </v-list-tile-content>
+         </v-list-tile>
+       </v-list>
+     </v-toolbar>
+
+       <v-list>
+           <v-list-tile  v-for="link in menuItems" :key="link.text"  router :to="link.route">
+               <v-list-tile-action>
+                   <v-icon class="white--text">{{link.icon}}</v-icon>
+               </v-list-tile-action>
+               <v-list-tile-content>
+                   <v-list-tile-title class="white--text">
+                       {{link.text}}<hr>
+                    </v-list-tile-title>
+               </v-list-tile-content>
+           </v-list-tile>
+       </v-list>
+   </v-navigation-drawer>
+
+   </nav>
+      <v-dialog v-model="dialog" max-width="500px">
+      <!-- <v-btn slot="activator" color="primary" dark class="mb-2">New Item</v-btn> -->
       <v-card>
         <v-card-title>
           <span class="headline">{{ formTitle }}</span>
@@ -149,10 +149,17 @@ export default {
          return{
            search: '',
            drawer:false,
-           links:[
-              {text:'Dashboard',route:'/'},
-              {icon:'add',text:'CourseRegistration',route:'/courseRegistration'},
-              {icon:'add',text:'StudentDetail',route:'/studentDetail'},
+           menuItems:[
+              {icon:'add',text:'Add Student',route:'/addstudent'},
+              {icon:'add',text:"Add Course",route:'/addcourse'},
+              {icon:'school',text:'Course Details',route:'/coursedetail'},
+              //
+              // {icon:'person',text:'Session Plan', route:'/session'},
+              // {icon:'person',text:'session Detail',route:'/sessiondetail'},
+              {icon:'add',text:'Addsession',route:'/sessionname'},
+
+              {icon:'grademanagement',text:'gradeManagement',route:'/gradeManagement'}
+
            ],
             pagination:{rowsPerPage:10},
             dialog: false,

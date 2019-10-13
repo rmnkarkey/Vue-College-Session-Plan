@@ -124,7 +124,7 @@ import axios from 'axios';
           // {icon:'add',text:'StudentDetail',route:'/studentDetail'},
        ],
        headers: [
-         {text:'checkBox',value:'coursecode'},
+         {text:'',value:'coursecode'},
         { text: 'course_code', value: 'coursecode' },
         { text: 'course_name', value: 'coursename' },
         { text: 'credit',value:'credit'},

@@ -73,18 +73,18 @@
           <v-container grid-list-md>
             <v-layout wrap>
               <v-flex xs12 sm6 md4>
-                <v-text-field v-model="editedItem.course_code" label="course_code"></v-text-field>
+                <v-text-field v-model="course_code" label="course_code"></v-text-field>
               </v-flex>
               <v-flex xs12 sm6 md4>
-                <v-text-field v-model="editedItem.course_name" label="course_name"></v-text-field>
-              </v-flex>
-
-              <v-flex xs12 sm6 md4>
-                <v-text-field v-model="editedItem.credit" label="credit"></v-text-field>
+                <v-text-field v-model="course_name" label="course_name"></v-text-field>
               </v-flex>
 
               <v-flex xs12 sm6 md4>
-                <v-text-field v-model="editedItem.prerequisite" label="prerequisite"></v-text-field>
+                <v-text-field v-model="credit" label="credit"></v-text-field>
+              </v-flex>
+
+              <v-flex xs12 sm6 md4>
+                <v-text-field v-model="prerequisite" label="prerequisite"></v-text-field>
               </v-flex>
             </v-layout>
           </v-container>
@@ -250,43 +250,43 @@ import axios from 'axios';
         }, 300)
       },
       save () {
-        if (this.editedIndex > -1) {
-          console.log('edited data');
-          console.log(this.editedItem);
+        // if (this.editedIndex > -1) {
+          // console.log('edited data');
+          // console.log(this.editedItem);
 
-          axios.post('ip/courses/'+this.editedItem.course_code+'/',{
-          course_code: this.editedItem.course_code,
-           course_name: this.editedItem.course_name,
-           year:this.editedItem.year,
-           credit:this.editedItem.credit,
-           session:this.editedItem.session,
-           prerequisite:this.editedItem.prerequisite
+          axios.post(ip+'/courses/',{
+            course_code:this.course_code,
+            course_name:this.course_name,
+            credit:this.credit,
+            prerequisite:this.prerequisite,
+
            })
           .then(response=>{
             console.log(response);
-
+            location.reload()
           })
 
-          Object.assign(this.courses[this.editedIndex], this.editedItem)
-        } else {
-          console.log('created data');
-          console.log(this.editedItem);
-           axios.post('ip/courses/'+this.editedItem.course_code+'/',{
-             course_code: this.editedItem.course_code,
-           course_name: this.editedItem.course_name,
-           year:this.editedItem.year,
-           session:this.editedItem.session,
-           credit:this.editedItem.credit,
-           prerequisite:this.editedItem.prerequisite})
-          .then(response=>{
-            console.log(response);
-
-          })
-          this.courses.push(this.editedItem)
-        }
-        this.close()
-      }
+          // Object.assign(this.courses[this.editedIndex], this.editedItem)
+      //   } else {
+      //     console.log('created data');
+      //     console.log(this.editedItem);
+      //      axios.post('ip/courses/'+this.editedItem.course_code+'/',{
+      //        course_code: this.editedItem.course_code,
+      //      course_name: this.editedItem.course_name,
+      //      year:this.editedItem.year,
+      //      session:this.editedItem.session,
+      //      credit:this.editedItem.credit,
+      //      prerequisite:this.editedItem.prerequisite})
+      //     .then(response=>{
+      //       console.log(response);
+      //
+      //     })
+      //     this.courses.push(this.editedItem)
+      //   }
+      //   this.close()
+      // }
     }
+  }
   }
 </script>
 <style media="screen">

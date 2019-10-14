@@ -121,6 +121,25 @@
   </v-form>
 <app-student-view v-bind:result="result"></app-student-view>
 </div>
+<v-dialog v-model="dialog" max-width="700px">
+  <!-- <v-btn slot="activator"  color="warning" dark class="mb-2">View Course</v-btn> -->
+  <v-card>
+    <v-card-title>
+      <span class="headline">Message</span>
+    </v-card-title>
+    <v-card-text>
+      <v-list>
+          <v-list-tile>
+              {{toShow}}
+          </v-list-tile>
+          <v-btn class="mb-2" @click="close()">CANCEL</v-btn>
+
+      </v-list>
+    </v-card-text>
+    </v-card>
+</v-dialog>
+
+
 </div>
 </template>
 
@@ -144,6 +163,8 @@ components:{
         date_created:'',
         enrolled_year:'',
         result:[],
+        toShow:'',
+        dialog:false,
       }
 
     }
@@ -155,6 +176,11 @@ components:{
          })
     },
      methods:{
+    close:function(){
+        this.dialog = false;
+        location.reload();
+
+    },
      formSubmit:function(e){
         e.preventDefault();
         axios.post(ip+'/student/',{
@@ -172,10 +198,12 @@ components:{
         }).then(function(response){
         console.log("data successfully inserted");
 
+
         }).catch(function(error){
           console.log(error)
         })
-
+        this.toShow="Student Added Succesfully"
+        this.dialog=true;
      },
 
    }

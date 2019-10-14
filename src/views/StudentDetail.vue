@@ -119,7 +119,7 @@
           <td class="text-xs-right">{{ props.item.date_created }}</td>
         <td class="text-xs-right">{{ props.item.enrolled_year }}</td>
         <td class="text-xs-right">{{ props.item.status }}</td>
-        <td class="text-xs-right">{{ props.item.password }}</td>
+        <!-- <td class="text-xs-right">{{ props.item.password }}</td> -->
         <td class="justify-center layout px-0">
           <v-btn icon class="mx-0" @click="editItem(props.item)">
             <v-icon color="teal">edit</v-icon>
@@ -177,7 +177,6 @@ export default {
             {text:'date_created',value:'date_created'},
             {text:'enrolled_year',value:'enrolled_year'},
             {text:'status',value:'status'},
-            {text:'password',value:'password'},
            { text: 'Actions', value: 'action', sortable: false },
 
 

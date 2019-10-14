@@ -1,7 +1,7 @@
 <template>
   <div>
       <v-dialog v-model="showmsg" max-width="450px" class="dialogboxcourse">
-    
+
       <v-card class="elevation-12">
                 <v-toolbar
                   color="red"
@@ -11,23 +11,23 @@
                   <v-toolbar-title >Alert!!!</v-toolbar-title>
                   <v-spacer></v-spacer>
                   <v-tooltip bottom>
-                    
+
                     <span>Source</span>
                   </v-tooltip>
                   <v-tooltip right>
-                  
-                  
+
+
                   </v-tooltip>
                 </v-toolbar>
                 {{errorString}}
-      
-                  
-                
+
+
+
                 <v-card-actions>
                   <v-spacer></v-spacer>
                   <v-btn color="primary" type="submit">Cancel</v-btn>
                 </v-card-actions>
-            
+
               </v-card>
       </v-dialog>
 
@@ -39,7 +39,7 @@
         </v-card-title>
         <v-card-text>
           <v-container grid-list-md>
-            
+
             <input type="checkbox" name="checkboxJan" value="Jan" @click="check($event)">Jan
             <input type="checkbox" name="checkboxMay" value="May" @click="check($event)">May
             <input type="checkbox" name="checkboxSep" value="Sep" @click="check($event)">Sep
@@ -98,7 +98,7 @@
     </v-dialog>
 
 
-     
+
      <!-- <div class="text-xs-center pt-2">
       <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
     </div> -->
@@ -121,7 +121,7 @@ import axios from 'axios';
         courseCodeList:[],
         errorString:'',
         showmsg:false
-  
+
     }),
     mounted(){
     //    axios.get('http://192.168.80.103:8000/courses/').then(response => (this.courses = response.data))
@@ -176,7 +176,7 @@ import axios from 'axios';
       initialize(){
          // this.fetchContacts();
       },
-      
+
       editItem (item) {
         this.editedIndex = this.courses.indexOf(item)
         this.editedItem = Object.assign({}, item)
@@ -184,16 +184,16 @@ import axios from 'axios';
       },
       deleteItem (item) {
         console.log(item);
-        
+
         const index = this.courses.indexOf(item)
         confirm('Are you sure you want to delete this item?') && this.courses.splice(index, 1)
           console.log('deleted data');
-          
+
           axios.delete('ip/courses/'+this.editedItem.course_code+'/')
           .then(response=>{
-           
+
             console.log(response);
-            
+
           })
       },
       close () {
@@ -204,7 +204,7 @@ import axios from 'axios';
         }, 300)
       },
       save () {
-       
+
           axios.post(ip+'/session-name-insert/'+this.sessionname+'/',{
            session:this.sessionname,
            courseCode: this.courseCodeList,
@@ -225,10 +225,10 @@ import axios from 'axios';
               else{
               console.log(response.data);
                 }
-            
+
           })
-          
-         
+
+
         this.close()
       }
     }

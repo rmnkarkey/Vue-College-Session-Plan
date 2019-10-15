@@ -5,7 +5,7 @@ import router from './router'
 
 
 Vue.use(Vuex)
-var ip='http://192.168.1.71:8000';
+var ip='http://10.5.50.35:8000';
 export default new Vuex.Store({
 state: {
 token: localStorage.getItem('access_token') || null,
@@ -16,7 +16,9 @@ todo:[],
 studentprofile:'',
 adminprofile:'',
 isAdminAuthnticate:'',
-isUserAuthenticate:''
+isUserAuthenticate:'',
+loginOrNot:'',
+authStatus:''
 
 //lol:false
 
@@ -57,7 +59,11 @@ studentprofile(state){
 adminprofile(state){
     console.log("admin profile  ")
     return state.adminprofile;
-}
+},
+loginorNot(state){
+  return state.loginOrNot
+},
+authStatus:state => atate.authStatus
 },
 mutations: {
 getList(state,payload){
@@ -90,9 +96,14 @@ adminprofile(state,value){
     // if(state.adminprofile==true){
     //     state.studentprofile=false
     // }
+},
+loginOrNot(state,value){
+state.loginOrNot=value
+},
+
+auth_error(state){
+  state.authStatus = 'error'
 }
-
-
 },
 
 actions: {
@@ -162,19 +173,30 @@ for(var i in token){
          router.push({ name: 'studentProfile' })
 
     }
+
     if(token[i]['admin']==true){
       context.commit('adminprofile',"true")
      router.push({ name: 'navbar' })
 
     }
+
 }
-console.log(response)
+console.log(response.data,'..........................................');
+
+var message = 'can not authenticate'
+// if(response.data==="can not authenticate"){
+// //context.commit('loginOrNot',reponse.data)
+// console.log("sdfsadfasdfsdfdfsadfs")
+//
+// }
 localStorage.setItem('access_token', token)
-//context.commit('retrieveToken', token)
+
+
 })
 .catch(error => {
-console.log("hghfghvhhv",error)
-
+console.log("hghfghvhhv",error);
+commit('auth_error');
+localStorage.removeItem('token')
 })
 
 },

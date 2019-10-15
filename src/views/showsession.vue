@@ -75,7 +75,7 @@
 
 
     <v-divider></v-divider>
-    list of session
+    <h2>list of session</h2>
     <br>
     <v-list>
         <v-list-tile v-for="session in session_name" :key="session">
@@ -120,9 +120,9 @@ export default {
 
                 // {icon:'person',text:'Session Plan', route:'/session'},
                 // {icon:'person',text:'session Detail',route:'/sessiondetail'},
-                {icon:'add',text:'Addsession',route:'/sessionname'},
+                {icon:'add',text:'Session Plan',route:'/sessionname'},
 
-                {icone:'grademanagement',text:'gradeManagement',route:'/gradeManagement'}
+                {icon:'add',text:'gradeManagement',route:'/gradeManagement'}
 
              ]
          }

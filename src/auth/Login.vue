@@ -1,5 +1,23 @@
 <template>
   <div id="app">
+    <v-dialog v-model="dialog" max-width="700px">
+      <!-- <v-btn slot="activator"  color="warning" dark class="mb-2">View Course</v-btn> -->
+      <v-card>
+        <v-card-title>
+          <span class="headline">Message</span>
+        </v-card-title>
+        <v-card-text>
+          <v-list>
+              <v-list-tile>
+                  <!-- {{toShow}} -->
+                  {{errorMessage}}
+              </v-list-tile>
+              <v-btn class="mb-2" @click="close()">CANCEL</v-btn>
+
+          </v-list>
+        </v-card-text>
+        </v-card>
+    </v-dialog>
   <v-app id="inspire">
     <v-content>
       <v-container
@@ -24,15 +42,15 @@
                 <v-toolbar-title>Login form</v-toolbar-title>
                 <v-spacer></v-spacer>
                 <v-tooltip bottom>
-                  
+
                   <span>Source</span>
                 </v-tooltip>
                 <v-tooltip right>
-                 
-                
+
+
                 </v-tooltip>
               </v-toolbar>
-              
+
      <v-form action="#" @submit.prevent="login">
                   <v-text-field
                     label="Login"
@@ -50,8 +68,8 @@
                     type="password"
                     v-model="password"
                   ></v-text-field>
-                
-              
+
+
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="primary" type="submit">Login</v-btn>
@@ -67,12 +85,15 @@
 </template>
 
 <script>
+
 export default {
   name: 'login',
   data() {
     return {
       username: '',
       password: '',
+      dialog:false,
+      errorMessage:'',
     }
   },
   methods: {
@@ -83,14 +104,19 @@ export default {
       })
         .then(response => {
         //this.$router.push({ name: 'addcourse' })
-        })
 
-        
-     
-  
+      //  if( )
+    }).catch(err =>{
+      console.log("sadfsdfsd",err);
+      this.dialog=true
+    })
+
+
+
+
 
     },
-    
+
   }
 }
 </script>
@@ -100,5 +126,5 @@ export default {
 #inspire{
   padding-right :50px;
 }
- 
+
 </style>

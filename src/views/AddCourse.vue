@@ -108,6 +108,24 @@
       <v-btn class="success" type="submit">submit </v-btn>
     </v-container>
   </v-form>
+  <v-dialog v-model="dialog" max-width="700px">
+    <!-- <v-btn slot="activator"  color="warning" dark class="mb-2">View Course</v-btn> -->
+    <v-card>
+      <v-card-title>
+        <span class="headline">Message</span>
+      </v-card-title>
+      <v-card-text>
+        <v-list>
+            <v-list-tile>
+                {{toShow}}
+            </v-list-tile>
+            <v-btn class="mb-2" @click="close()">CANCEL</v-btn>
+
+        </v-list>
+      </v-card-text>
+      </v-card>
+  </v-dialog>
+
 </div>
 </template>
 
@@ -118,6 +136,8 @@
 
     data(){
       return{
+        toShow:'',
+        dialog:false,
         course_code:'',
         course_name:'',
         year:'',
@@ -132,9 +152,9 @@
            //
            // {icon:'person',text:'Session Plan', route:'/session'},
            // {icon:'person',text:'session Detail',route:'/sessiondetail'},
-           {icon:'add',text:'Addsession',route:'/sessionname'},
+           {icon:'add',text:'Session Plan',route:'/sessionname'},
 
-           {icone:'grademanagement',text:'gradeManagement',route:'/gradeManagement'}
+           {icon:'add',text:'gradeManagement',route:'/gradeManagement'}
 
         ]
 
@@ -151,6 +171,11 @@
     })
     },
      methods:{
+       close:function(){
+           this.dialog = false;
+           location.reload();
+
+       },
      formSubmit:function(e){
         e.preventDefault();
         axios.post(ip+'/courses/',{
@@ -166,6 +191,8 @@
           console.log(error)
         })
 
+        this.toShow="Course Added Succesfully";
+        this.dialog=true;
      },
 
    }

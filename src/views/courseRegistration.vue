@@ -58,11 +58,16 @@
        </v-list>
    </v-navigation-drawer>
    </nav>
+   <div class='lower'>
     <v-list>
-        <v-list-tile v-for="(course) in courses" :key="course">
-            {{course.session_name}}
-            {{course.max_credit}}
-        </v-list-tile>
+        <!-- <v-list-tile v-for="(course) in courses" :key="course">
+            Session Name: {{course.session_name}}
+            <br>
+            Max Credit: {{course.max_credit}}
+        </v-list-tile> -->
+        <h3>Session Name: {{sessionName}}</h3>
+        <br>
+        <h3>Max Credit: {{maxCredit}}</h3>
     </v-list>
 
   <h2> {{coursecode}}</h2>
@@ -104,7 +109,7 @@
               </v-flex>
           </v-layout>
       </v-container>
-
+</div>
   </div>
 </template>
 
@@ -233,5 +238,8 @@ import axios from 'axios';
   .linker{
     text-decoration: none;
     color:black
+  }
+  .lower{
+    margin-top:100px
   }
 </style>

@@ -144,7 +144,7 @@ import axios from 'axios';
   export default {
     data: () => ({
        search: '',
-       pagination:{rowsPerPage:10},
+       pagination:{rowsPerPage:20},
        drawer:false,
        menuItems:[
           {icon:'add',text:'Add Student',route:'/addstudent'},
@@ -153,9 +153,9 @@ import axios from 'axios';
           //
           // {icon:'person',text:'Session Plan', route:'/session'},
           // {icon:'person',text:'session Detail',route:'/sessiondetail'},
-          {icon:'add',text:'Addsession',route:'/sessionname'},
+          {icon:'add',text:'Session Plan',route:'/sessionname'},
 
-          {icone:'grademanagement',text:'gradeManagement',route:'/gradeManagement'}
+          {icon:'add',text:'gradeManagement',route:'/gradeManagement'}
 
        ],
        headers: [

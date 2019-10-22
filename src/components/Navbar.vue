@@ -70,14 +70,13 @@ export default {
              drawer:false,
              menuItems:[
                 {icon:'add',text:'Add Student',route:'/addstudent'},
-                {icon:'add',text:"Add Course",route:'/addcourse'},
                 {icon:'school',text:'Course Details',route:'/coursedetail'},
 
                 // {icon:'person',text:'Session Plan', route:'/session'},
                 // {icon:'person',text:'session Detail',route:'/sessiondetail'},
                 {icon:'add',text:'Addsession',route:'/sessionname'},
 
-                {icone:'grademanagement',text:'gradeManagement',route:'/gradeManagement'}
+                {icon:'grade',text:'Grade Management',route:'/gradeManagement'}
 
              ]
          }

@@ -148,14 +148,13 @@ import axios from 'axios';
        drawer:false,
        menuItems:[
           {icon:'add',text:'Add Student',route:'/addstudent'},
-          {icon:'add',text:"Add Course",route:'/addcourse'},
           {icon:'school',text:'Course Details',route:'/coursedetail'},
           //
           // {icon:'person',text:'Session Plan', route:'/session'},
           // {icon:'person',text:'session Detail',route:'/sessiondetail'},
           {icon:'add',text:'Session Plan',route:'/sessionname'},
 
-          {icon:'add',text:'gradeManagement',route:'/gradeManagement'}
+          {icon:'grade',text:'gradeManagement',route:'/gradeManagement'}
 
        ],
        headers: [

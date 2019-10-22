@@ -50,7 +50,39 @@
    </v-navigation-drawer>
 
    </nav>
+   <div class="lower">
+     <h1>lists of course</h1>
+     <br>
+     <p v-for="c in course">
+       <a @click="clicked(c)">{{c}}</a>
+     </p>
 
+
+     <v-dialog v-model="dialog" max-width="900px" max-height="400px" class="box">
+       <v-card>
+         <v-card-title>
+           <span class="headline"><h1>Registerd Students Name</h1></span>
+         </v-card-title>
+         <v-card-text>
+           <v-container grid-list-md>
+             <v-layout wrap>
+               <p v-for="n in name">
+                 {{n}}
+                 <input type="text" v-model="userName">
+                  ::Marks: <input type="number" v-model="marks">
+                 <br>
+               </p>
+             </v-layout>
+           </v-container>
+         </v-card-text>
+         <v-card-actions>
+           <v-spacer></v-spacer>
+           <v-btn color="blue darken-1" flat @click.native="save">Save</v-btn>
+           <v-btn color="blue darken-1" flat @click.native="close">Cancel</v-btn>
+         </v-card-actions>
+       </v-card>
+     </v-dialog>
+   </div>
 </div>
 </template>
 
@@ -61,29 +93,75 @@
 
     data(){
       return{
-
+        userName:'',
+        marks:'',
+        dialog:false,
+        courseName:'',
+        courses:"",
+        course:[],
+        names:"",
+        name:[],
         drawer:false,
         menuItems:[
            {icon:'add',text:'Add Student',route:'/addstudent'},
-           {icon:'add',text:"Add Course",route:'/addcourse'},
            {icon:'school',text:'Course Details',route:'/coursedetail'},
            //
            // {icon:'person',text:'Session Plan', route:'/session'},
            // {icon:'person',text:'session Detail',route:'/sessiondetail'},
            {icon:'add',text:'Session Plan',route:'/sessionname'},
 
-           {icon:'add',text:'gradeManagement',route:'/gradeManagement'}
+           {icon:'grade',text:'Grade Management',route:'/gradeManagement'}
 
         ]
 
       }
 
+    },
+    methods:{
+      close:function(){
+        this.dialog = false
+        this.name.splice(0, this.name.length);
+      },
+      clicked:function(c){
+        console.log(c)
+        this.courseName=c;
+        console.log(this.courseName,'................')
+        axios.get(ip+'/registered/'+c).
+        then(response=>{
+          console.log(response.data)
+          this.names=response.data
+          for(var j of this.names){
+            console.log(j)
+            this.name.push(j)
+          }
+
+        })
+        this.dialog=true
+      },
+      save:function(){
+        axios.post(ip+'/grades/',{
+          username:this.userName,
+          marks:this.marks,
+          coursename:this.courseName
+        })
+      }
+    },
+    mounted:function(){
+      axios.get(ip+'/all-courses/')
+      .then(response=>{
+        console.log(response)
+        this.courses=response.data;
+        for(var i of this.courses){
+          console.log(i)
+          this.course.push(i)
+        }
+      })
     }
 
   }
 </script>
 <style media="screen">
-  .form{
-    margin-top:50px
+  .lower{
+    margin-left:50px
   }
 </style>

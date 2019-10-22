@@ -5,7 +5,7 @@ import router from './router'
 
 
 Vue.use(Vuex)
-var ip='http://10.5.50.35:8000';
+var ip='http://192.168.1.71:8000';
 export default new Vuex.Store({
 state: {
 token: localStorage.getItem('access_token') || null,

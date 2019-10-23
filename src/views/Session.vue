@@ -89,7 +89,7 @@
     <br>
     <br>
     <v-label>Start Date  </v-label>
-    <v-text-field type="date" v-model="startdate"></v-text-field>
+    <v-text-field type="date" data-date-format="YYYY MMMM DD" v-model="startdate"></v-text-field>
     <br>
     <v-label>Dead line   </v-label>
     <v-text-field type="date" v-model="deadline"></v-text-field>

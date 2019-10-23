@@ -2,7 +2,7 @@
 
 
 
-<v-form v-model="valid" @submit="formSubmit" method="POST">  
+<v-form v-model="valid" @submit="formSubmit" method="POST">
 <v-container grid-list-xl>
 <v-layout wrap>
 <v-flex
@@ -44,20 +44,21 @@ required
 
 
 
-<v-flex 
+<v-flex
 xs12
-md4> 
+md4>
 <v-text-field
 v-model="start_date"
 placeholder="start_date"
 type='date'
+
 required
 ></v-text-field>
 
 </v-flex>
-<v-flex 
+<v-flex
 xs12
-md4> 
+md4>
 <v-text-field
 v-model="end_date"
 placeholder="end_date"

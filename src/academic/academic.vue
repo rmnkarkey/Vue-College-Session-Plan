@@ -6,12 +6,32 @@
       <b><h1>Academic Information</h1></b>
 
       <br>
-      <h2>Registered Courses</h2>
+      <h2>Registered courses with results </h2>
+      <br>
       <p v-for="i in courses">
-        {{i}}
+        <a @click="clicked(i)">{{i}}</a>
       </p>
       <!-- {{course}} -->
     </v-list>
+    <v-dialog v-model="dialog" max-width="400px" class="box">
+      <v-card>
+        <v-card-title>
+          <span class="headline"><h1>Result </h1></span>
+        </v-card-title>
+        <v-card-text>
+          <v-container grid-list-md>
+            <v-layout wrap>
+                <p>Marks: {{marks}}</p>
+            </v-layout>
+          </v-container>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" flat @click.native="close">Close</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
   </div>
   <nav class="nav-class">
 <v-toolbar flat app class="blue">
@@ -77,6 +97,8 @@ import axios from 'axios';
   export default{
     data(){
       return{
+          marks:'',
+          dialog:false,
           drawer:false,
           course: [],
           showCourse:[],
@@ -89,6 +111,21 @@ import axios from 'axios';
 
              // {icon:'add',text:'StudentDetail',route:'/studentDetail'},
           ],
+      }
+    },
+    methods:{
+      close(){
+        this.dialog=false
+      },
+      clicked(e){
+        console.log(e)
+        axios.post(ip+'/student-grade/'+e+'/',{
+          course_name:e
+        }).then(response=>{
+          console.log(response.data)
+          this.marks=response.data
+        })
+        this.dialog=true
       }
     },
     mounted: function(){

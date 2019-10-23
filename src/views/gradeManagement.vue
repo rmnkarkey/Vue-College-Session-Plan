@@ -61,23 +61,22 @@
      <v-dialog v-model="dialog" max-width="900px" max-height="400px" class="box">
        <v-card>
          <v-card-title>
-           <span class="headline"><h1>Registerd Students Name</h1></span>
+           <span class="headline"><h1>Registerd students name on this course </h1></span>
          </v-card-title>
          <v-card-text>
            <v-container grid-list-md>
              <v-layout wrap>
-               <p v-for="n in name">
-                 {{n}}
-                 <input type="text" v-model="userName">
-                  ::Marks: <input type="number" v-model="marks">
-                 <br>
-               </p>
+               <h4 v-for="n in name">
+                 <i>University Id:</i> {{n}}
+                 <input type="hidden" :value="n" name='username'>
+                  <i>Marks: </i><input class="input" type="number" v-model="marks">
+                  <v-btn color="blue darken-1" flat @click.native="save(n,marks)">Save</v-btn>
+               </h4>
              </v-layout>
            </v-container>
          </v-card-text>
          <v-card-actions>
            <v-spacer></v-spacer>
-           <v-btn color="blue darken-1" flat @click.native="save">Save</v-btn>
            <v-btn color="blue darken-1" flat @click.native="close">Cancel</v-btn>
          </v-card-actions>
        </v-card>
@@ -93,8 +92,8 @@
 
     data(){
       return{
-        userName:'',
         marks:'',
+        userName:'',
         dialog:false,
         courseName:'',
         courses:"",
@@ -138,12 +137,15 @@
         })
         this.dialog=true
       },
-      save:function(){
+      save:function(e,ee){
+        console.log(e,'......',ee)
         axios.post(ip+'/grades/',{
-          username:this.userName,
-          marks:this.marks,
+          username:e,
+          marks:ee,
           coursename:this.courseName
-        })
+        }).then(response => {
+          console.log(response.data)
+        });
       }
     },
     mounted:function(){
@@ -164,4 +166,5 @@
   .lower{
     margin-left:50px
   }
+.input { outline: 1px black solid }
 </style>

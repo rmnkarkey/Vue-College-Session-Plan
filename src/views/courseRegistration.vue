@@ -68,6 +68,7 @@
         <h3>Session Name: {{sessionName}}</h3>
         <br>
         <h3>Max Credit: {{maxCredit}}</h3>
+
     </v-list>
 
   <h2> {{coursecode}}</h2>
@@ -103,6 +104,8 @@
  <v-container>
           <v-layout>
               <v-flex xs12>
+                <p v-model="texts">{{resp}}</p>
+                <br>
                   <v-btn class="justify-center" @click="save" layout px-0>
                       <v-icon > save </v-icon>
                   </v-btn>
@@ -117,6 +120,8 @@
 import axios from 'axios';
   export default {
     data: () => ({
+      texts:false,
+      resp:'',
        search: '',
        userName:'',
        drawer:false,
@@ -219,19 +224,18 @@ import axios from 'axios';
                  sessionname:this.sessionName,
                  maxcredit:this.maxCredit,
                  checkbox:this.check_box_value
-             }).then(function(result){
-                 console.log(result)
-             }).catch(function(err){
-                 console.log(err)
+             }).then(response=>{
+               console.log(response.data)
+               this.resp=response.data
+               this.texts=true
              })
      }
 
-
+}
 
     }
 
 
-  }
 </script>
 
 <style media="screen">

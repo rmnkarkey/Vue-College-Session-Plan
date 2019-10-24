@@ -18,6 +18,7 @@ import Newlogin from './auth/newlogin';
 import studentprofile from './components/StudentProfile'
 import navbar from './components/Navbar'
 import aca from './academic/academic'
+import finance from './finance/finance'
 
 Vue.use(Router)
 
@@ -149,6 +150,11 @@ export default new Router({
       path:'/academic',
       name:'aca',
       component:aca
+    },
+    {
+      path:'/finance',
+      name:'finance',
+      component:finance
     }
 
 

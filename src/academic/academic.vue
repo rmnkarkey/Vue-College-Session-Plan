@@ -20,9 +20,16 @@
         </v-card-title>
         <v-card-text>
           <v-container grid-list-md>
-            <v-layout wrap>
-                <p>Marks: {{marks}}</p>
-            </v-layout>
+            <div v-model="markss">
+              <p>Marks: {{marks}}</p>
+                <br>
+                <p>Grade: {{grades}}</p>
+                <br>
+                <p>Status: {{status}}</p>
+            </div>
+            <div v-model="nomarkss">
+              {{error}}
+            </div>
           </v-container>
         </v-card-text>
         <v-card-actions>
@@ -97,6 +104,11 @@ import axios from 'axios';
   export default{
     data(){
       return{
+          markss:'',
+          nomarkss:'',
+          error:'',
+          grades:'',
+          status:'',
           marks:'',
           dialog:false,
           drawer:false,
@@ -123,7 +135,16 @@ import axios from 'axios';
           course_name:e
         }).then(response=>{
           console.log(response.data)
-          this.marks=response.data
+          this.marks=response.data.marks;
+          this.grades=response.data.grades;
+          this.status=response.data.status;
+          this.error=response.data.error;
+
+          if(!this.error.length==0){
+            this.marks="-";
+            this.grades="-";
+            this.status="-"
+          }
         })
         this.dialog=true
       }

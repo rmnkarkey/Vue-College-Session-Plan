@@ -66,6 +66,7 @@
          <v-card-text>
            <v-container grid-list-md>
              <v-layout wrap>
+               <h2 v-model="texts">{{text}}</h2>
                <h4 v-for="n in name">
                  <i>University Id:</i> {{n}}
                  <input type="hidden" :value="n" name='username'>
@@ -92,6 +93,8 @@
 
     data(){
       return{
+        texts:false,
+        text:'',
         marks:'',
         userName:'',
         dialog:false,
@@ -145,6 +148,8 @@
           coursename:this.courseName
         }).then(response => {
           console.log(response.data)
+          this.text=response.data
+          this.texts=true
         });
       }
     },

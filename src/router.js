@@ -28,8 +28,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'dashboard',
-      component: Dashboard
+      name: 'login',
+      component: Login
     },
 
     {

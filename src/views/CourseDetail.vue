@@ -42,7 +42,7 @@
            </v-list-tile-avatar>
 
            <v-list-tile-content>
-             <v-list-tile-title>Admin</v-list-tile-title>
+             <v-list-tile-title><a  v-bind:href="'/adminprofile'"> <span class="linker">Admin</span></a></v-list-tile-title>
            </v-list-tile-content>
          </v-list-tile>
        </v-list>

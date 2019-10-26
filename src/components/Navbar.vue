@@ -1,4 +1,6 @@
 <template>
+  <div class="">
+
      <nav >
     <v-toolbar flat app class="blue">
     <v-toolbar-side-icon  v-on:click="drawer = !drawer">
@@ -41,7 +43,7 @@
             </v-list-tile-avatar>
 
             <v-list-tile-content>
-              <v-list-tile-title>Admin</v-list-tile-title>
+              <v-list-tile-title><a  v-bind:href="'/adminprofile'"> <span class="linker">Admin</span></a></v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
         </v-list>
@@ -62,6 +64,17 @@
     </v-navigation-drawer>
 
     </nav>
+    <div class="lowers">
+      <h1>ADMIN SECTION</h1>
+      <br>
+      <h2>IIMS COLLEGE</h2>
+      <br>
+      <h3>Putalisadak, Kathmandu</h3>
+      <br>
+      <img src="./iims.png" style="width:200px;height:200px;">
+    </div>
+  </div>
+
 </template>
 <script>
 export default {
@@ -137,3 +150,10 @@ export default {
   }
 }
 </script>
+<style media="screen">
+  .lowers{
+    margin-top:100px;
+    text-align: center
+  }
+
+</style>

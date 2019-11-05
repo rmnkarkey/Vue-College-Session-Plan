@@ -69,9 +69,10 @@
                <h2 v-model="texts">{{text}}</h2>
                <h4 v-for="n in name">
                  <i>University Id:</i> {{n}}
-                 <input type="hidden" :value="n" name='username'>
-                  <i>Marks: </i><input class="input" type="number" v-model="marks">
-                  <v-btn color="blue darken-1" flat @click.native="save(n,marks)">Save</v-btn>
+                 <!-- <input type="hidden" :value="n" name='username'> -->
+                 <i>Marks: </i><input type="text" placeholder="enter the marks"  @input="something = $event.target.value">
+                  <!-- <input class=  "input" type="number" v-model="marks"> -->
+                  <v-btn color="blue darken-1" flat @click.native="save(n,something)">Save</v-btn>
                </h4>
              </v-layout>
            </v-container>
